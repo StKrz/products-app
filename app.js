@@ -32,7 +32,6 @@ require('dotenv').config()
    app.use('/api/user-products', userProduct)
 
    app.use('/api/products', product)
-
    
    app.use('/api-docs', 
      swaggerUi.serve,
