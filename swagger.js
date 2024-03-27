@@ -204,6 +204,133 @@ exports.options = {
           }
         }
       }
+    },
+    "/api/products":{
+      "get":{
+        "tags":["Products"],
+        "description": "Return all products",
+        "responses":{
+          "200": {
+            "description":"A list of products",
+            "content":{
+              "application/json":{
+                "schema":{
+                  "type":"array",
+                  "items":{
+                    "$ref":"#/components/schemas/Products"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post":{
+        "tags": ["Products"],
+        "description":"Create new product",
+        "requestBody":{
+          "description":"Product schema to insert",
+          "content":{
+            "application/json":{
+              "schema":{
+                "type":"object",
+                "properties":{
+                  "product": {"type":"string"},
+                  "cost": {"type":"string"},
+                  "description": {"type":"string"},
+                  "quantity": {"type":"Number"}
+                },
+                "required":["product", "cost","description", "quantity"]
+              }
+            }
+          }
+        },
+        "responses":{
+          "200":{
+            "description": "New product inserted"
+            }
+          }
+        }
+    },
+    "/api/products/{product}":{
+      "get":{
+        "tags":["Products"],
+        "parameters":[
+          {
+            "name":"product",
+            "in":"path",
+            "required":true,
+            "description": "Name of product that we want to find",
+            "type":"string"
+          }
+        ],
+        "description":"Get product with specific name",
+        "responses":{
+          "200":{
+            "description":"Product to find",
+            "schema":{
+              "$ref":"#/components/schemas/Products"
+            }
+          }
+        }
+      }
+      ,
+      "patch":{
+        "tags":[ "Products" ],
+        "description":"Update product in app",
+        "parameters":[
+          {
+            "name":"product",
+            "in":"path",
+            "required":true,
+            "description": "Name of product that we want to update",
+            "type":"string"
+          },
+        ],
+        "requestBody":{
+          "description": "Product that we update",
+          "content":{
+            "application/json":{
+              "schema":{
+                "type":"object",
+                "properties":{
+                  "product": {"type":"string"},
+                  "cost": {"type":"string"},
+                  "description": {"type":"string"},
+                  "quantity": {"type":"Number"},
+                },
+                "required":["product", "cost", "description", "quantity"]
+              }
+            }
+          }
+        },
+        "responses":{
+          "200": {
+            "description": "Update product",
+            "schema":{
+              "$ref": "#/components/schemas/Product"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags":["Products"],
+        "description":"Delete a product",
+        "parameters":[
+          {
+            "name":"product",
+            "in":"path",
+            "required":true,
+            "description": "Name of product that we want to update",
+            "type":"string"
+          },
+        ],
+        "responses":{
+          "200":{
+            "description":"Delete a product"
+          }
+        }
+      }
     }
   }
 }

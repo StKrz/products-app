@@ -30,7 +30,6 @@ require('dotenv').config()
    app.use('/', express.static('files'))
    app.use('/api/users', user)
    app.use('/api/user-products', userProduct)
-
    app.use('/api/products', product)
    
    app.use('/api-docs', 
